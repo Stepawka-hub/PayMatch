@@ -1,8 +1,10 @@
 import {
   Table as BaseTable,
   Box,
+  FormControlLabel,
   Paper,
   Radio,
+  Switch,
   TableBody,
   TableCell,
   TableContainer,
@@ -11,8 +13,15 @@ import {
 } from "@mui/material";
 import { TableProps } from "./types";
 import { TEntity } from "@types";
+import { useState } from "react";
 
 export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
+  const [isDense, setIsDense] = useState(false);
+
+  const handleChangeDense = () => {
+    setIsDense((p) => !p);
+  };
+
   const tableColumns = columns.map((col) => (
     <TableCell key={String(col.id)} sx={{ fontWeight: "bold" }}>
       {col.label}
@@ -50,7 +59,7 @@ export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }} variant="outlined">
         <TableContainer>
-          <BaseTable>
+          <BaseTable size={isDense ? "small" : "medium"}>
             <TableHead>
               <TableRow>
                 <TableCell />
@@ -61,6 +70,12 @@ export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
           </BaseTable>
         </TableContainer>
       </Paper>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <FormControlLabel
+          control={<Switch checked={isDense} onChange={handleChangeDense} />}
+          label="Компактный вид"
+        />
+      </Box>
     </Box>
   );
 };

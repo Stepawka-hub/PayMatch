@@ -2,6 +2,7 @@ import { TCheckData, TPaymentData } from "@types";
 
 export const mockPayments: TPaymentData[] = [
   {
+    id: "f6g7h8i9-j0k1-2345-fghi-678901234567",
     number: 456781,
     sum: 12500,
     customer: "ООО 'Вектор'",
@@ -15,6 +16,7 @@ export const mockPayments: TPaymentData[] = [
     accountantComment: "Счет актирован, проведен по статье 506.01",
   },
   {
+    id: "e5f6g7h8-i9j0-1234-efgh-567890123456",
     number: 456782,
     sum: 8500,
     customer: "АО 'ТехноПрофи'",
@@ -28,6 +30,7 @@ export const mockPayments: TPaymentData[] = [
     accountantComment: "Принято к зачету, кассовый ордер №КО-124",
   },
   {
+    id: "d4e5f6g7-h8i9-0123-defg-456789012345",
     number: 456783,
     sum: 22300,
     customer: "ИП Козлов М.С.",
@@ -44,6 +47,7 @@ export const mockPayments: TPaymentData[] = [
 
 export const mockChecks: TCheckData[] = [
   {
+    id: "c3d4e5f6-g7h8-9012-cdef-345678901234",
     number: 123451,
     sum: 12500,
     customer: "ООО 'Вектор'",
@@ -57,6 +61,7 @@ export const mockChecks: TCheckData[] = [
       "Оплата образовательных услуг по программе 'Frontend-разработка на React'",
   },
   {
+    id: "b2c3d4e5-f6g7-8901-bcde-f23456789012",
     number: 123452,
     sum: 8500,
     customer: "АО 'ТехноПрофи'",
@@ -70,6 +75,7 @@ export const mockChecks: TCheckData[] = [
       "Уплата государственной пошлины за проведение аттестации специалиста",
   },
   {
+    id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     number: 123453,
     sum: 22300,
     customer: "ИП Козлов М.С.",

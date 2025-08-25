@@ -1,9 +1,12 @@
 import { CheckTable, PaymentTable } from "@components";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 export const PayMatchPage: FC = () => {
+  const [selectedPayment, setSelectedPayment] = useState();
+  const [selectedCheck, setSelectedCheck] = useState();
+  
   return (
     <Paper sx={{ p: 2, minHeight: "100vh" }}>
       <Typography
