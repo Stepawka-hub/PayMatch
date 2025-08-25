@@ -1,9 +1,11 @@
-export type TableProps<T> = {
+import { TEntity } from '@types';
+
+export type TableProps<T extends TEntity> = {
   columns: THeadCell<T>[];
-  data: unknown[];
+  data: T[];
 };
 
-export type THeadCell<T> = {
-  id: keyof T;
+export type THeadCell<T extends TEntity> = {
+  id: keyof T & string;
   label: string;
 };

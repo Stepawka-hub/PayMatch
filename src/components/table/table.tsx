@@ -1,4 +1,3 @@
-import { FC } from "react";
 import {
   Table as BaseTable,
   Box,
@@ -8,13 +7,14 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableProps,
   TableRow,
 } from "@mui/material";
+import { TableProps } from "./types";
+import { TEntity } from "@types";
 
-export const Table: FC = <T,>({ columns, data }: TableProps<T>) => {
+export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
   const tableColumns = columns.map((col) => (
-    <TableCell key={col.id} sx={{ fontWeight: "bold" }}>
+    <TableCell key={String(col.id)} sx={{ fontWeight: "bold" }}>
       {col.label}
     </TableCell>
   ));
@@ -28,18 +28,20 @@ export const Table: FC = <T,>({ columns, data }: TableProps<T>) => {
       <TableRow
         hover
         sx={{ cursor: "pointer" }}
-        key={r.number}
+        key={r.id}
         tabIndex={-1}
-        onClick={(e) => null}
+        onClick={() => null}
       >
         <TableCell padding="checkbox">
           <Radio color="primary" checked={isItemSelected} />
         </TableCell>
-        {columns.map((col) => (
-          <TableCell key={col.id} align={col.align}>
-            {r[col.id]}
-          </TableCell>
-        ))}
+
+        {columns.map((col) => {
+          const value = r[col.id];
+          return (
+            <TableCell key={col.id}>{value ? String(value) : ""}</TableCell>
+          );
+        })}
       </TableRow>
     );
   });
@@ -51,7 +53,7 @@ export const Table: FC = <T,>({ columns, data }: TableProps<T>) => {
           <BaseTable>
             <TableHead>
               <TableRow>
-                <TableCell  />
+                <TableCell />
                 {tableColumns}
               </TableRow>
             </TableHead>

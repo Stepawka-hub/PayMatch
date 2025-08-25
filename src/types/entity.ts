@@ -1,4 +1,8 @@
-export type TFinancialDocument = {
+export type TEntity = {
+  id: string;
+};
+
+export type TFinancialDocument = TEntity & {
   number: number;
   sum: number;
   customer: string; // 150
