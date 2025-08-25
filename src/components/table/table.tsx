@@ -1,6 +1,9 @@
 import { FC } from "react";
 import {
   Table as BaseTable,
+  Box,
+  Paper,
+  Radio,
   TableBody,
   TableCell,
   TableContainer,
@@ -9,31 +12,53 @@ import {
   TableRow,
 } from "@mui/material";
 
-export const Table: FC<TableProps> = ({ columns, data }) => {
+export const Table: FC = <T,>({ columns, data }: TableProps<T>) => {
   const tableColumns = columns.map((col) => (
-    <TableCell key={col.id} align={col.align} sx={{ fontWeight: "bold" }}>
+    <TableCell key={col.id} sx={{ fontWeight: "bold" }}>
       {col.label}
     </TableCell>
   ));
 
-  const tableRows = data.map((r) => (
-    <TableRow hover role="checkbox" tabIndex={-1} key={r.number}>
-      {columns.map((col) => (
-        <TableCell key={col.id} align={col.align}>
-          {data[col.id]}
+  const tableRows = data.map((r) => {
+    const isItemSelected = true;
+    // const isItemSelected = selected.includes(row.id);
+    // const labelId = `enhanced-table-checkbox-${index}`;
+
+    return (
+      <TableRow
+        hover
+        sx={{ cursor: "pointer" }}
+        key={r.number}
+        tabIndex={-1}
+        onClick={(e) => null}
+      >
+        <TableCell padding="checkbox">
+          <Radio color="primary" checked={isItemSelected} />
         </TableCell>
-      ))}
-    </TableRow>
-  ));
+        {columns.map((col) => (
+          <TableCell key={col.id} align={col.align}>
+            {r[col.id]}
+          </TableCell>
+        ))}
+      </TableRow>
+    );
+  });
 
   return (
-    <TableContainer>
-      <BaseTable>
-        <TableHead>
-          <TableRow>{tableColumns}</TableRow>
-        </TableHead>
-        <TableBody>{tableRows}</TableBody>
-      </BaseTable>
-    </TableContainer>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }} variant="outlined">
+        <TableContainer>
+          <BaseTable>
+            <TableHead>
+              <TableRow>
+                <TableCell  />
+                {tableColumns}
+              </TableRow>
+            </TableHead>
+            <TableBody>{tableRows}</TableBody>
+          </BaseTable>
+        </TableContainer>
+      </Paper>
+    </Box>
   );
 };

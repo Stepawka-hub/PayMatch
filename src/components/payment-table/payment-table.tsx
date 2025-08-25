@@ -1,30 +1,20 @@
 import { FC } from "react";
-import { Table } from "@mui/material";
-import { TColumn } from "./types";
 import { mockPayments } from "@utils/mock";
+import { Table, THeadCell } from "@components";
+import { TPaymentData } from "@types";
 
-const columns: TColumn[] = [
-  { id: "number", label: "Номер", align: "right" },
-  {
-    id: "sum",
-    label: "Сумма",
-    align: "right",
-    format: (value: number) => `${value.toLocaleString()} ₽`,
-  },
-  { id: "customer", label: "Плательщик", align: "left" },
-  { id: "customerINN", label: "ИНН плательщика", align: "right" },
-  { id: "executor", label: "Получатель", align: "left" },
-  { id: "executorINN", label: "ИНН получателя", align: "right" },
-  { id: "examinee", label: "Обследуемый", align: "left" },
-  { id: "type", label: "Тип оплаты", align: "left" },
-  {
-    id: "createdAt",
-    label: "Дата создания",
-    align: "right",
-    format: (value: string) => new Date(value).toLocaleDateString(),
-  },
-  { id: "paymentComment", label: "Комментарий к платежу", align: "left" },
-  { id: "accountantComment", label: "Комментарий бухгалтера", align: "left" },
+const columns: THeadCell<TPaymentData>[] = [
+  { id: "number", label: "№" },
+  { id: "sum", label: "Сумма" },
+  { id: "customer", label: "Заказчик" },
+  { id: "customerINN", label: "Заказчик ИНН" },
+  { id: "executor", label: "Исполнитель" },
+  { id: "executorINN", label: "Исполнитель ИНН" },
+  { id: "examinee", label: "ФИО Экзаменуемого" },
+  { id: "type", label: "Тип" },
+  { id: "createdAt", label: "Дата создания" },
+  { id: "paymentComment", label: "Комментарий платежа" },
+  { id: "accountantComment", label: "Комментарий бухгалтера" },
 ];
 
 export const PaymentTable: FC = () => {

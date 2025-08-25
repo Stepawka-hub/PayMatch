@@ -1,11 +1,9 @@
-export type TableProps = {
-  columns: unknown[];
+export type TableProps<T> = {
+  columns: THeadCell<T>[];
   data: unknown[];
 };
 
-export type TColumn<T> = {
-  id: string;
+export type THeadCell<T> = {
+  id: keyof T;
   label: string;
-  align: string;
-  format: (value: T) => string;
 };
