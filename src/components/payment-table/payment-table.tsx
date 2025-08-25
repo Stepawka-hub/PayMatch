@@ -1,14 +1,7 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { mockPayments } from "@utils/mock";
 import { FC } from "react";
+import { Table } from "@mui/material";
 import { TColumn } from "./types";
+import { mockPayments } from "@utils/mock";
 
 const columns: TColumn[] = [
   { id: "number", label: "Номер", align: "right" },
@@ -35,35 +28,5 @@ const columns: TColumn[] = [
 ];
 
 export const PaymentTable: FC = () => {
-  return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <TableCell
-                key={col.id}
-                align={col.align}
-                sx={{ fontWeight: "bold" }}
-              >
-                {col.label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {mockPayments.map((data) => (
-            <TableRow hover role="checkbox" tabIndex={-1} key={data.number}>
-              {columns.map((col) => (
-                <TableCell key={col.id} align={col.align}>
-                  {data[col.id]}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+  return <Table columns={columns} data={mockPayments} />;
 };

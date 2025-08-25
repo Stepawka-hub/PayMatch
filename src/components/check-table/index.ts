@@ -1,0 +1,1 @@
+export { CheckTable } from './check-table';

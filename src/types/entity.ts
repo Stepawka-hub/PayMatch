@@ -8,15 +8,17 @@ export type TFinancialDocument = {
   examinee: string;
 };
 
+export type TPaymentType = "электронный" | "наличный";
 export type TPaymentData = TFinancialDocument & {
-  type: "электронный" | "наличный";
+  type: TPaymentType;
   createdAt: string;
   paymentComment: string; // 300
   accountantComment: string;
 };
 
+export type TCheckType = "обучение" | "пошлина";
 export type TCheckData = TFinancialDocument & {
-  type: "обучение" | "пошлина";
+  type: TCheckType;
   qualification: string; // 10
   purposeOfPayment: string; // 500
 };
