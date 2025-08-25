@@ -1,0 +1,85 @@
+import { TCheckData, TPaymentData } from "@types";
+
+export const mockPayments: TPaymentData[] = [
+  {
+    number: 456781,
+    sum: 12500,
+    customer: "ООО 'Вектор'",
+    customerINN: "7712345678",
+    executor: "ИП Смирнов А.В.",
+    executorINN: "7734567890",
+    examinee: "Петров Иван Сергеевич",
+    type: "электронный",
+    createdAt: "2024-10-25T14:30:00",
+    paymentComment: "Оплата за обучение по курсу 'Frontend-разработка'",
+    accountantComment: "Счет актирован, проведен по статье 506.01",
+  },
+  {
+    number: 456782,
+    sum: 8500,
+    customer: "АО 'ТехноПрофи'",
+    customerINN: "7823456789",
+    executor: "ЧОУ ДПО 'Академия IT'",
+    executorINN: "7745678901",
+    examinee: "Сидорова Екатерина Петровна",
+    type: "наличный",
+    createdAt: "2024-10-24T11:15:00",
+    paymentComment: "Оплата госпошлины за аттестацию",
+    accountantComment: "Принято к зачету, кассовый ордер №КО-124",
+  },
+  {
+    number: 456783,
+    sum: 22300,
+    customer: "ИП Козлов М.С.",
+    customerINN: "7734567891",
+    executor: "ООО 'Учебный центр Профи'",
+    executorINN: "7756789012",
+    examinee: "Васильев Дмитрий Александрович",
+    type: "электронный",
+    createdAt: "2024-10-23T16:45:00",
+    paymentComment: "Частичная предоплата за курс повышения квалификации",
+    accountantComment: "Авансовый платеж, к зачету после оказания услуг",
+  },
+];
+
+export const mockChecks: TCheckData[] = [
+  {
+    number: 123451,
+    sum: 12500,
+    customer: "ООО 'Вектор'",
+    customerINN: "7712345678",
+    executor: "ИП Смирнов А.В.",
+    executorINN: "7734567890",
+    examinee: "Петров Иван Сергеевич",
+    type: "обучение",
+    qualification: "Frontend",
+    purposeOfPayment:
+      "Оплата образовательных услуг по программе 'Frontend-разработка на React'",
+  },
+  {
+    number: 123452,
+    sum: 8500,
+    customer: "АО 'ТехноПрофи'",
+    customerINN: "7823456789",
+    executor: "ЧОУ ДПО 'Академия IT'",
+    executorINN: "7745678901",
+    examinee: "Сидорова Екатерина Петровна",
+    type: "пошлина",
+    qualification: "Аттестация",
+    purposeOfPayment:
+      "Уплата государственной пошлины за проведение аттестации специалиста",
+  },
+  {
+    number: 123453,
+    sum: 22300,
+    customer: "ИП Козлов М.С.",
+    customerINN: "7734567891",
+    executor: "ООО 'Учебный центр Профи'",
+    executorINN: "7756789012",
+    examinee: "Васильев Дмитрий Александрович",
+    type: "обучение",
+    qualification: "Бэкенд",
+    purposeOfPayment:
+      "Оплата курса 'Backend-разработка на Node.js' со скидкой 15% по акции",
+  },
+];
