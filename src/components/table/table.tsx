@@ -15,7 +15,12 @@ import { TableProps } from "./types";
 import { TEntity } from "@types";
 import { useState } from "react";
 
-export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
+export const Table = <T extends TEntity>({
+  columns,
+  data,
+  selectedItemId,
+  handleChangeItemId,
+}: TableProps<T>) => {
   const [isDense, setIsDense] = useState(false);
 
   const handleChangeDense = () => {
@@ -29,17 +34,18 @@ export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
   ));
 
   const tableRows = data.map((r) => {
-    const isItemSelected = true;
-    // const isItemSelected = selected.includes(row.id);
+    const isItemSelected = r.id === selectedItemId;
     // const labelId = `enhanced-table-checkbox-${index}`;
 
     return (
       <TableRow
         hover
-        sx={{ cursor: "pointer" }}
+        aria-checked={isItemSelected}
         key={r.id}
         tabIndex={-1}
-        onClick={() => null}
+        sx={{ cursor: "pointer" }}
+        selected={isItemSelected}
+        onClick={() => handleChangeItemId(r.id)}
       >
         <TableCell padding="checkbox">
           <Radio color="primary" checked={isItemSelected} />
@@ -70,7 +76,7 @@ export const Table = <T extends TEntity>({ columns, data }: TableProps<T>) => {
           </BaseTable>
         </TableContainer>
       </Paper>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box>
         <FormControlLabel
           control={<Switch checked={isDense} onChange={handleChangeDense} />}
           label="Компактный вид"

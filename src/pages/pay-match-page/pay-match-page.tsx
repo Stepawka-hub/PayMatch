@@ -1,12 +1,21 @@
 import { CheckTable, PaymentTable } from "@components";
-import { Box, Button, Paper, Typography } from "@mui/material";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import { mockChecks, mockPayments } from "@utils/mock";
 import { FC, useState } from "react";
 
 export const PayMatchPage: FC = () => {
-  const [selectedPayment, setSelectedPayment] = useState();
-  const [selectedCheck, setSelectedCheck] = useState();
-  
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string>("");
+  const [selectedCheckId, setSelectedCheckId] = useState<string>("");
+
+  const handleChangePaymentId = (id: string) => {
+    setSelectedPaymentId(id);
+  };
+
+  const handleChangeCheckId = (id: string) => {
+    setSelectedCheckId(id);
+  };
+
   return (
     <Paper sx={{ p: 2, minHeight: "100vh" }}>
       <Typography
@@ -20,10 +29,20 @@ export const PayMatchPage: FC = () => {
       >
         Форма сопоставления платежей
       </Typography>
+
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <PaymentTable />
-        <CheckTable />
+        <PaymentTable
+          payments={mockPayments}
+          selectedItemId={selectedPaymentId}
+          handleChangeItemId={handleChangePaymentId}
+        />
+        <CheckTable
+          checks={mockChecks}
+          selectedItemId={selectedCheckId}
+          handleChangeItemId={handleChangeCheckId}
+        />
       </Box>
+
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="contained"

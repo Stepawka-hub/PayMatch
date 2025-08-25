@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Table, THeadCell } from "@components";
-import { mockChecks } from "@utils/mock";
 import { TCheckData } from "@types";
+import { CheckTableProps } from "./types";
 
 const columns: THeadCell<TCheckData>[] = [
   { id: "number", label: "№" },
@@ -16,6 +16,6 @@ const columns: THeadCell<TCheckData>[] = [
   { id: "purposeOfPayment", label: "Назначение платежа" },
 ];
 
-export const CheckTable: FC = () => {
-  return <Table columns={columns} data={mockChecks} />;
+export const CheckTable: FC<CheckTableProps> = ({ checks, ...baseProps }) => {
+  return <Table columns={columns} data={checks} {...baseProps} />;
 };

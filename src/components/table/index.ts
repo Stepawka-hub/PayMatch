@@ -1,2 +1,2 @@
-export { Table } from './table';
-export type { THeadCell } from './types';
+export { Table } from "./table";
+export type { THeadCell, BaseTableProps } from "./types";

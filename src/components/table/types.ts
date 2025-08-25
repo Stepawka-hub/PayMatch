@@ -1,6 +1,11 @@
-import { TEntity } from '@types';
+import { TEntity } from "@types";
 
-export type TableProps<T extends TEntity> = {
+export type BaseTableProps = {
+  selectedItemId: string;
+  handleChangeItemId: (id: string) => void;
+};
+
+export type TableProps<T extends TEntity> = BaseTableProps & {
   columns: THeadCell<T>[];
   data: T[];
 };

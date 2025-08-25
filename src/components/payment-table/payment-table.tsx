@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { mockPayments } from "@utils/mock";
 import { Table, THeadCell } from "@components";
 import { TPaymentData } from "@types";
+import { PaymentTableProps } from "./types";
 
 const columns: THeadCell<TPaymentData>[] = [
   { id: "number", label: "№" },
@@ -17,6 +17,9 @@ const columns: THeadCell<TPaymentData>[] = [
   { id: "accountantComment", label: "Комментарий бухгалтера" },
 ];
 
-export const PaymentTable: FC = () => {
-  return <Table columns={columns} data={mockPayments} />;
+export const PaymentTable: FC<PaymentTableProps> = ({
+  payments,
+  ...baseProps
+}) => {
+  return <Table columns={columns} data={payments} {...baseProps} />;
 };
