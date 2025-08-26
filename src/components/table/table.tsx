@@ -47,7 +47,6 @@ export const Table = <T extends TEntity>({
     setIsDense((p) => !p);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -92,7 +91,18 @@ export const Table = <T extends TEntity>({
   return (
     <Box>
       <Paper sx={{ mb: 2 }} variant="outlined">
-        <TableTitle title={title} />
+        <TableTitle
+          title={title}
+          actions={
+            <FormControlLabel
+              control={
+                <Switch checked={isDense} onChange={handleChangeDense} />
+              }
+              label="Компактный вид"
+              labelPlacement='start'
+            />
+          }
+        />
 
         <TableContainer>
           <BaseTable size={isDense ? "small" : "medium"}>
@@ -143,13 +153,6 @@ export const Table = <T extends TEntity>({
           </BaseTable>
         </TableContainer>
       </Paper>
-
-      <Box>
-        <FormControlLabel
-          control={<Switch checked={isDense} onChange={handleChangeDense} />}
-          label="Компактный вид"
-        />
-      </Box>
     </Box>
   );
 };

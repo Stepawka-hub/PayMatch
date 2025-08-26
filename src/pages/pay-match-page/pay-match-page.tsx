@@ -1,4 +1,3 @@
-import { FC, useState } from "react";
 import {
   CheckTable,
   MatchConfirmModal,
@@ -7,6 +6,7 @@ import {
 } from "@components";
 import { Box, Paper, Typography } from "@mui/material";
 import { mockChecks, mockPayments } from "@utils/mock";
+import { FC, useMemo, useState } from "react";
 
 export const PayMatchPage: FC = () => {
   const [selectedPaymentId, setSelectedPaymentId] = useState<string>("");
@@ -19,6 +19,16 @@ export const PayMatchPage: FC = () => {
   const handleChangeCheckId = (id: string) => {
     setSelectedCheckId(id);
   };
+
+  const selectedPayment = useMemo(
+    () => mockPayments.find((p) => p.id === selectedPaymentId) || null,
+    [selectedPaymentId]
+  );
+
+  const selectedCheck = useMemo(
+    () => mockChecks.find((c) => c.id === selectedCheckId) || null,
+    [selectedCheckId]
+  );
 
   return (
     <Paper sx={{ p: 2, minHeight: "100vh" }}>
@@ -51,10 +61,8 @@ export const PayMatchPage: FC = () => {
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <MatchConfirmModal
-          paymentData={
-            mockPayments.find((p) => p.id === selectedPaymentId) || null
-          }
-          checkData={mockChecks.find((c) => c.id === selectedCheckId) || null}
+          paymentData={selectedPayment}
+          checkData={selectedCheck}
         />
       </Box>
     </Paper>
