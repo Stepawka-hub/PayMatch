@@ -12,17 +12,13 @@ export const MatchConfirmModal: FC<MatchConfirmModalProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onOpen = () => {
-    setIsOpen(true);
-  };
+  const handleOpen = () => setIsOpen(true);
+
+  const handleClose = () => setIsOpen(false);
 
   const onConfirm = () => {
     console.log("Confirm match");
     handleClose();
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
   };
 
   return (
@@ -32,7 +28,7 @@ export const MatchConfirmModal: FC<MatchConfirmModalProps> = ({
         color="primary"
         startIcon={<CompareArrowsIcon />}
         disabled={!paymentData || !checkData}
-        onClick={onOpen}
+        onClick={handleOpen}
       >
         Сопоставить счёт и платёж
       </Button>
