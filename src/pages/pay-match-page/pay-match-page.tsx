@@ -1,6 +1,5 @@
-import { CheckTable, PaymentTable } from "@components";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { CheckTable, MatchConfirmModal, PaymentTable } from "@components";
+import { Box, Paper, Typography } from "@mui/material";
 import { mockChecks, mockPayments } from "@utils/mock";
 import { FC, useState } from "react";
 
@@ -44,13 +43,12 @@ export const PayMatchPage: FC = () => {
       </Box>
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<CompareArrowsIcon />}
-        >
-          Сопоставить счёт и платёж
-        </Button>
+        <MatchConfirmModal
+          paymentData={
+            mockPayments.find((p) => p.id === selectedPaymentId) || null
+          }
+          checkData={mockChecks.find((c) => c.id === selectedCheckId) || null}
+        />
       </Box>
     </Paper>
   );
