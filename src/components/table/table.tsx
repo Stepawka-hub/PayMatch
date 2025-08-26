@@ -81,7 +81,7 @@ export const Table = <T extends TEntity>({
         {columns.map((col) => {
           const value = r[col.id];
           return (
-            <TableCell key={col.id} align='center'>
+            <TableCell key={col.id} align='center' sx={{ minWidth: 100 }}>
               {col.format ? col.format(value) : String(value ?? "")}
             </TableCell>
           );

@@ -47,15 +47,15 @@ export const PayMatchPage: FC = () => {
       <SearchPanel />
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <PaymentTable
-          payments={mockPayments}
-          selectedItemId={selectedPaymentId}
-          handleChangeItemId={handleChangePaymentId}
-        />
         <CheckTable
           checks={mockChecks}
           selectedItemId={selectedCheckId}
           handleChangeItemId={handleChangeCheckId}
+        />
+        <PaymentTable
+          payments={mockPayments}
+          selectedItemId={selectedPaymentId}
+          handleChangeItemId={handleChangePaymentId}
         />
       </Box>
 

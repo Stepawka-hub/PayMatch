@@ -88,4 +88,18 @@ export const mockChecks: TCheckData[] = [
     purposeOfPayment:
       "Оплата курса 'Backend-разработка на Node.js' со скидкой 15% по акции",
   },
+  {
+    id: "x9y8z7w6-v5u4-3210-tuvw-987654321098",
+    number: 123454,
+    sum: 18700,
+    customer: "ООО 'ИТ Решения'",
+    customerINN: "7701234567",
+    executor: "НОУ 'Центр профессионального обучения'",
+    executorINN: "7723456789",
+    examinee: "Кузнецова Анна Михайловна",
+    type: "education",
+    qualification: "Data Science",
+    purposeOfPayment:
+      "Оплата за курс 'Анализ данных и машинное обучение', рассрочка 2 месяца",
+  },
 ];

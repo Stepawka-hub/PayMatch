@@ -39,7 +39,7 @@ export const MatchConfirmModal: FC<MatchConfirmModalProps> = ({
         aria-describedby="matching-modal-description"
       >
         <Typography variant="h6" gutterBottom id="matching-modal-title">
-          Подтверждение сопоставления
+          Подтверждение операции
         </Typography>
 
         <Divider sx={{ my: 2 }} />
