@@ -1,6 +1,7 @@
 import { TEntity } from "@types";
 
 export type BaseTableProps = {
+  title?: string;
   selectedItemId: string;
   handleChangeItemId: (id: string) => void;
 };

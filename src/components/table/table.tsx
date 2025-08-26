@@ -8,24 +8,53 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import { TableProps } from "./types";
 import { TEntity } from "@types";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { TableTitle } from "./table-title";
 
 export const Table = <T extends TEntity>({
+  title,
   columns,
   data,
   selectedItemId,
   handleChangeItemId,
 }: TableProps<T>) => {
-  const [isDense, setIsDense] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [isDense, setIsDense] = useState(true);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const handleChangeDense = () => {
     setIsDense((p) => !p);
   };
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+  const visibleRows = useMemo(
+    () => [...data].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [data, page, rowsPerPage]
+  );
 
   const tableColumns = columns.map((col) => (
     <TableCell key={String(col.id)} sx={{ fontWeight: "bold" }}>
@@ -35,7 +64,6 @@ export const Table = <T extends TEntity>({
 
   const tableRows = data.map((r) => {
     const isItemSelected = r.id === selectedItemId;
-    // const labelId = `enhanced-table-checkbox-${index}`;
 
     return (
       <TableRow
@@ -62,8 +90,10 @@ export const Table = <T extends TEntity>({
   });
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }} variant="outlined">
+    <Box>
+      <Paper sx={{ mb: 2 }} variant="outlined">
+        <TableTitle title={title} />
+
         <TableContainer>
           <BaseTable size={isDense ? "small" : "medium"}>
             <TableHead>
@@ -72,10 +102,34 @@ export const Table = <T extends TEntity>({
                 {tableColumns}
               </TableRow>
             </TableHead>
+
             <TableBody>{tableRows}</TableBody>
+
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  colSpan={3}
+                  count={data.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  slotProps={{
+                    select: {
+                      inputProps: {
+                        "aria-label": "Количество записей:",
+                      },
+                      native: true,
+                    },
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </TableRow>
+            </TableFooter>
           </BaseTable>
         </TableContainer>
       </Paper>
+
       <Box>
         <FormControlLabel
           control={<Switch checked={isDense} onChange={handleChangeDense} />}

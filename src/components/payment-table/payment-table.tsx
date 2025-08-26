@@ -21,5 +21,7 @@ export const PaymentTable: FC<PaymentTableProps> = ({
   payments,
   ...baseProps
 }) => {
-  return <Table columns={columns} data={payments} {...baseProps} />;
+  return (
+    <Table title="Платежи" columns={columns} data={payments} {...baseProps} />
+  );
 };

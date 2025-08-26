@@ -17,5 +17,5 @@ const columns: THeadCell<TCheckData>[] = [
 ];
 
 export const CheckTable: FC<CheckTableProps> = ({ checks, ...baseProps }) => {
-  return <Table columns={columns} data={checks} {...baseProps} />;
+  return <Table title="Счета" columns={columns} data={checks} {...baseProps} />;
 };
