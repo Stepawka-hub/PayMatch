@@ -14,4 +14,5 @@ export type TableProps<T extends TEntity> = BaseTableProps & {
 export type THeadCell<T extends TEntity> = {
   id: keyof T & string;
   label: string;
+  format?: (value: T[keyof T]) => string;
 };

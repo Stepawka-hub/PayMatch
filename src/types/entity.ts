@@ -12,7 +12,7 @@ export type TFinancialDocument = TEntity & {
   examinee: string;
 };
 
-export type TPaymentType = "электронный" | "наличный";
+export type TPaymentType = "electronic" | "cash";
 export type TPaymentData = TFinancialDocument & {
   type: TPaymentType;
   createdAt: string;
@@ -20,7 +20,7 @@ export type TPaymentData = TFinancialDocument & {
   accountantComment: string;
 };
 
-export type TCheckType = "обучение" | "пошлина";
+export type TCheckType = "education" | "duty";
 export type TCheckData = TFinancialDocument & {
   type: TCheckType;
   qualification: string; // 10

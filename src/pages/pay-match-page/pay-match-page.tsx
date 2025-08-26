@@ -35,10 +35,10 @@ export const PayMatchPage: FC = () => {
       <Typography
         variant="h2"
         sx={{
-          fontSize: "2.25rem",
+          fontSize: "2rem",
           fontWeight: 500,
           textAlign: "center",
-          mb: 2,
+          mb: 1,
         }}
       >
         Форма сопоставления платежей

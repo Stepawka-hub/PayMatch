@@ -56,7 +56,7 @@ export const Table = <T extends TEntity>({
   );
 
   const tableColumns = columns.map((col) => (
-    <TableCell key={String(col.id)} sx={{ fontWeight: "bold" }}>
+    <TableCell key={String(col.id)} align='center' sx={{ fontWeight: "bold" }}>
       {col.label}
     </TableCell>
   ));
@@ -81,7 +81,9 @@ export const Table = <T extends TEntity>({
         {columns.map((col) => {
           const value = r[col.id];
           return (
-            <TableCell key={col.id}>{value ? String(value) : ""}</TableCell>
+            <TableCell key={col.id} align='center'>
+              {col.format ? col.format(value) : String(value ?? "")}
+            </TableCell>
           );
         })}
       </TableRow>
@@ -99,7 +101,7 @@ export const Table = <T extends TEntity>({
                 <Switch checked={isDense} onChange={handleChangeDense} />
               }
               label="Компактный вид"
-              labelPlacement='start'
+              labelPlacement="start"
             />
           }
         />
