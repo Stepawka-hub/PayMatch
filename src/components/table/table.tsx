@@ -26,11 +26,11 @@ export const Table = <T extends TEntity>({
   handleChangeItemId,
 }: TableProps<T>) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
   const [isDense, setIsDense] = useState(true);
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setPage(newPage);
@@ -62,7 +62,7 @@ export const Table = <T extends TEntity>({
     </TableCell>
   ));
 
-  const tableRows = data.map((r) => {
+  const tableRows = visibleRows.map((r) => {
     const isItemSelected = r.id === selectedItemId;
 
     return (
@@ -103,13 +103,23 @@ export const Table = <T extends TEntity>({
               </TableRow>
             </TableHead>
 
-            <TableBody>{tableRows}</TableBody>
+            <TableBody>
+              {tableRows}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: (isDense ? 33 : 53) * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
 
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                  colSpan={3}
+                  rowsPerPageOptions={[3, 5, 10, 25]}
                   count={data.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
@@ -121,6 +131,10 @@ export const Table = <T extends TEntity>({
                       native: true,
                     },
                   }}
+                  labelRowsPerPage="Количество записей:"
+                  labelDisplayedRows={({ from, to, count }) =>
+                    `${from}-${to} из ${count}`
+                  }
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
