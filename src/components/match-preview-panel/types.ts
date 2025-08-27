@@ -1,4 +1,9 @@
-import { TCheckData, TPaymentData } from "@types";
+import {
+  TCheckData,
+  TColumn as TBaseColumn,
+  TPaymentData,
+  TEntity,
+} from "@types";
 
 export type MatchPreviewPanelProps = {
   isOpen: boolean;
@@ -6,4 +11,8 @@ export type MatchPreviewPanelProps = {
   checkData: TCheckData | null;
   onConfirm: () => void;
   onCancel: () => void;
+};
+
+export type TColumn<T extends TEntity> = TBaseColumn<T> & {
+  color?: string;
 };

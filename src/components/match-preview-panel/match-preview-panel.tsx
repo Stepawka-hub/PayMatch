@@ -7,13 +7,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { MatchPreviewPanelProps } from "./types";
-import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import CloseIcon from "@mui/icons-material/Close";
+import { MatchPreviewPanelProps, TColumn } from "./types";
 import { Drawer } from "@ui";
 import { CHECK_TYPE_LABELS, PAYMENT_TYPE_LABELS } from "@utils/constants";
-import { TCheckData, TColumn, TPaymentData } from "@types";
+import { TCheckData, TPaymentData } from "@types";
 import { DetailItem } from "./detail-item";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import CloseIcon from "@mui/icons-material/Close";
 
 const drawerWidth = 600;
 
@@ -29,6 +29,7 @@ const paymentCols: TColumn<TPaymentData>[] = [
   {
     id: "sum",
     label: "Сумма",
+    color: "success",
     format: (value) => `${value.toLocaleString("ru-RU")} ₽`,
   },
   { id: "customer", label: "Заказчик" },
@@ -57,6 +58,7 @@ const checkCols: TColumn<TCheckData>[] = [
   {
     id: "sum",
     label: "Сумма",
+    color: "success",
     format: (value) => `${value.toLocaleString("ru-RU")} ₽`,
   },
   { id: "customer", label: "Заказчик" },
@@ -84,6 +86,7 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
           key={c.id}
           label={c.label}
           value={c.format ? c.format(checkData[c.id]) : String(checkData[c.id])}
+          color={c.color}
         />
       ))
     : null;
@@ -96,6 +99,7 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
           value={
             c.format ? c.format(paymentData[c.id]) : String(paymentData[c.id])
           }
+          color={c.color}
         />
       ))
     : null;
@@ -118,14 +122,14 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
         <Divider sx={{ my: 2 }} />
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 0.25 }}>
             {`Счёт: №${checkData?.number || "-"}`}
           </Typography>
           {checkInfo}
         </Box>
 
         <Box sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+          <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 0.25 }}>
             {`Платёж: №${paymentData?.number || "-"}`}
           </Typography>
           {paymentInfo}

@@ -66,7 +66,7 @@ export const Table = <T extends TEntity>({
       >
         <Typography
           variant="body1"
-          sx={{ fontSize: "1.1rem", fontWeight: 500 }}
+          sx={{ fontSize: "1rem", fontWeight: 500 }}
         >
           {col.label}
         </Typography>
@@ -102,7 +102,7 @@ export const Table = <T extends TEntity>({
               align="center"
               sx={{ minWidth: minCellWidth }}
             >
-              <Typography sx={{ fontSize: "0.95rem" }}>
+              <Typography sx={{ fontSize: "0.9rem" }}>
                 {col.format ? col.format(value) : String(value ?? "")}
               </Typography>
             </TableCell>
