@@ -1,6 +1,7 @@
 import { TCheckData, TPaymentData } from "@types";
 
-export type MatchConfirmModalProps = {
+export type MatchPreviewPanelProps = {
+  isOpen: boolean;
   paymentData: TPaymentData | null;
   checkData: TCheckData | null;
 };

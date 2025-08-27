@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { TEntity } from "@types";
-import { useMemo, useState } from "react";
+import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { TableTitle } from "./table-title";
 import { TableProps } from "./types";
 
@@ -29,14 +29,14 @@ export const Table = <T extends TEntity>({
   const [rowsPerPage, setRowsPerPage] = useState(3);
 
   const handleChangePage = (
-    _: React.MouseEvent<HTMLButtonElement> | null,
+    _: MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -52,9 +52,16 @@ export const Table = <T extends TEntity>({
 
   const tableColumns = columns.map((col) => (
     <TableCell key={String(col.id)} align="center" sx={{ fontWeight: "bold" }}>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 0.5,
+        }}
+      >
         {col.label}
-        <IconButton>
+        <IconButton size="small">
           <FilterAltIcon />
         </IconButton>
       </Box>

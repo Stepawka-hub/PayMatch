@@ -1,5 +1,5 @@
-import { CheckTable, MatchConfirmModal, PaymentTable } from "@components";
-import { Box, Paper, Typography } from "@mui/material";
+import { CheckTable, MatchPreviewPanel, PaymentTable } from "@components";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { mockChecks, mockPayments } from "@utils/mock";
 import { FC, useMemo, useState } from "react";
 
@@ -27,37 +27,46 @@ export const PayMatchPage: FC = () => {
 
   return (
     <Paper sx={{ p: 2, minHeight: "100vh" }}>
-      <Typography
-        variant="h2"
-        sx={{
-          fontSize: "2rem",
-          fontWeight: 500,
-          textAlign: "center",
-          mb: 1,
-        }}
-      >
-        Форма сопоставления платежей
-      </Typography>
+      <Grid container direction="column">
+        <Grid container justifyContent="center">
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: "2rem",
+              fontWeight: 500,
+              textAlign: "center",
+              mb: 1,
+            }}
+          >
+            Форма сопоставления платежей
+          </Typography>
+        </Grid>
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <CheckTable
-          checks={mockChecks}
-          selectedItemId={selectedCheckId}
-          handleChangeItemId={handleChangeCheckId}
-        />
-        <PaymentTable
-          payments={mockPayments}
-          selectedItemId={selectedPaymentId}
-          handleChangeItemId={handleChangePaymentId}
-        />
-      </Box>
+        <Grid container spacing={0}>
+          <Grid size="grow">
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <CheckTable
+                checks={mockChecks}
+                selectedItemId={selectedCheckId}
+                handleChangeItemId={handleChangeCheckId}
+              />
+              <PaymentTable
+                payments={mockPayments}
+                selectedItemId={selectedPaymentId}
+                handleChangeItemId={handleChangePaymentId}
+              />
+            </Box>
+          </Grid>
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <MatchConfirmModal
-          paymentData={selectedPayment}
-          checkData={selectedCheck}
-        />
-      </Box>
+          <Grid>
+            <MatchPreviewPanel
+              isOpen={selectedPayment !== null && selectedCheck !== null}
+              paymentData={selectedPayment}
+              checkData={selectedCheck}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };
