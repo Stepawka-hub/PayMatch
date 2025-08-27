@@ -26,7 +26,7 @@ export const Table = <T extends TEntity>({
   handleChangeItemId,
 }: TableProps<T>) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (
     _: MouseEvent<HTMLButtonElement> | null,
@@ -36,9 +36,9 @@ export const Table = <T extends TEntity>({
   };
 
   const handleChangeRowsPerPage = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
 
@@ -98,55 +98,51 @@ export const Table = <T extends TEntity>({
   });
 
   return (
-    <Box>
-      <Paper sx={{ mb: 2 }} variant="outlined">
-        <TableTitle title={title} />
+    <Paper sx={{ borderRadius: "1.25rem" }} variant="outlined">
+      <TableTitle title={title} />
 
-        <TableContainer>
-          <BaseTable size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                {tableColumns}
+      <TableContainer sx={{ borderRadius: "1.25rem" }}>
+        <BaseTable size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              {tableColumns}
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {tableRows}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 33 * emptyRows }}>
+                <TableCell colSpan={6} />
               </TableRow>
-            </TableHead>
+            )}
+          </TableBody>
 
-            <TableBody>
-              {tableRows}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 33 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[3, 5, 10, 25]}
-                  count={data.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  slotProps={{
-                    select: {
-                      inputProps: {
-                        "aria-label": "Количество записей:",
-                      },
-                      native: true,
-                    },
-                  }}
-                  labelRowsPerPage="Количество записей:"
-                  labelDisplayedRows={({ from, to, count }) =>
-                    `${from}-${to} из ${count}`
-                  }
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-              </TableRow>
-            </TableFooter>
-          </BaseTable>
-        </TableContainer>
-      </Paper>
-    </Box>
+          <TableFooter>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              slotProps={{
+                select: {
+                  inputProps: {
+                    "aria-label": "Количество записей:",
+                  },
+                  native: true,
+                },
+              }}
+              labelRowsPerPage="Количество записей:"
+              labelDisplayedRows={({ from, to, count }) =>
+                `${from}-${to} из ${count}`
+              }
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableFooter>
+        </BaseTable>
+      </TableContainer>
+    </Paper>
   );
 };

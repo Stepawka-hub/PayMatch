@@ -18,13 +18,11 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
   isOpen,
   paymentData,
   checkData,
+  onConfirm,
+  onCancel,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
-
-  const onConfirm = () => {
-    console.log("Confirm match");
-  };
 
   return (
     <Drawer
@@ -85,7 +83,11 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
             >
               Подтвердить
             </Button>
-            <Button variant="outlined" startIcon={<CloseIcon />}>
+            <Button
+              variant="outlined"
+              startIcon={<CloseIcon />}
+              onClick={onCancel}
+            >
               Отмена
             </Button>
           </Box>
