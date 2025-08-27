@@ -50,7 +50,7 @@ export const PayMatchPage: FC = () => {
             variant="h2"
             sx={{
               fontSize: "2rem",
-              fontWeight: 500,
+              fontWeight: 400,
               textAlign: "center",
               mb: 2,
             }}

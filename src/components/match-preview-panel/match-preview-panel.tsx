@@ -32,7 +32,7 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
       sx={{ width: isOpen ? drawerWidth : 0, ml: isOpen ? 3 : 0 }}
     >
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
           Подтверждение операции
         </Typography>
 

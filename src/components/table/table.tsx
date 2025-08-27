@@ -2,6 +2,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import {
   Table as BaseTable,
   Box,
+  Divider,
   IconButton,
   Paper,
   Radio,
@@ -12,11 +13,14 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { TEntity } from "@types";
 import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { TableTitle } from "./table-title";
 import { TableProps } from "./types";
+
+const minCellWidth = 100;
 
 export const Table = <T extends TEntity>({
   title,
@@ -51,7 +55,7 @@ export const Table = <T extends TEntity>({
   );
 
   const tableColumns = columns.map((col) => (
-    <TableCell key={String(col.id)} align="center" sx={{ fontWeight: "bold" }}>
+    <TableCell key={String(col.id)} align="center">
       <Box
         sx={{
           display: "flex",
@@ -60,7 +64,12 @@ export const Table = <T extends TEntity>({
           gap: 0.5,
         }}
       >
-        {col.label}
+        <Typography
+          variant="body1"
+          sx={{ fontSize: "1.1rem", fontWeight: 500 }}
+        >
+          {col.label}
+        </Typography>
         <IconButton size="small">
           <FilterAltIcon />
         </IconButton>
@@ -88,8 +97,14 @@ export const Table = <T extends TEntity>({
         {columns.map((col) => {
           const value = r[col.id];
           return (
-            <TableCell key={col.id} align="center" sx={{ minWidth: 100 }}>
-              {col.format ? col.format(value) : String(value ?? "")}
+            <TableCell
+              key={col.id}
+              align="center"
+              sx={{ minWidth: minCellWidth }}
+            >
+              <Typography sx={{ fontSize: "0.95rem" }}>
+                {col.format ? col.format(value) : String(value ?? "")}
+              </Typography>
             </TableCell>
           );
         })}
@@ -101,7 +116,9 @@ export const Table = <T extends TEntity>({
     <Paper sx={{ borderRadius: "1.25rem" }} variant="outlined">
       <TableTitle title={title} />
 
-      <TableContainer sx={{ borderRadius: "1.25rem" }}>
+      <Divider />
+
+      <TableContainer sx={{ borderRadius: "0 0 1.25rem 1.25rem" }}>
         <BaseTable size="small">
           <TableHead>
             <TableRow>
