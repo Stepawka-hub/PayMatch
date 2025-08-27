@@ -1,10 +1,10 @@
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import {
   Table as BaseTable,
   Box,
-  FormControlLabel,
+  IconButton,
   Paper,
   Radio,
-  Switch,
   TableBody,
   TableCell,
   TableContainer,
@@ -13,10 +13,10 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import { TableProps } from "./types";
 import { TEntity } from "@types";
 import { useMemo, useState } from "react";
 import { TableTitle } from "./table-title";
+import { TableProps } from "./types";
 
 export const Table = <T extends TEntity>({
   title,
@@ -27,7 +27,6 @@ export const Table = <T extends TEntity>({
 }: TableProps<T>) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-  const [isDense, setIsDense] = useState(true);
 
   const handleChangePage = (
     _: React.MouseEvent<HTMLButtonElement> | null,
@@ -43,10 +42,6 @@ export const Table = <T extends TEntity>({
     setPage(0);
   };
 
-  const handleChangeDense = () => {
-    setIsDense((p) => !p);
-  };
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -56,8 +51,13 @@ export const Table = <T extends TEntity>({
   );
 
   const tableColumns = columns.map((col) => (
-    <TableCell key={String(col.id)} align='center' sx={{ fontWeight: "bold" }}>
-      {col.label}
+    <TableCell key={String(col.id)} align="center" sx={{ fontWeight: "bold" }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+        {col.label}
+        <IconButton>
+          <FilterAltIcon />
+        </IconButton>
+      </Box>
     </TableCell>
   ));
 
@@ -81,7 +81,7 @@ export const Table = <T extends TEntity>({
         {columns.map((col) => {
           const value = r[col.id];
           return (
-            <TableCell key={col.id} align='center' sx={{ minWidth: 100 }}>
+            <TableCell key={col.id} align="center" sx={{ minWidth: 100 }}>
               {col.format ? col.format(value) : String(value ?? "")}
             </TableCell>
           );
@@ -93,21 +93,10 @@ export const Table = <T extends TEntity>({
   return (
     <Box>
       <Paper sx={{ mb: 2 }} variant="outlined">
-        <TableTitle
-          title={title}
-          actions={
-            <FormControlLabel
-              control={
-                <Switch checked={isDense} onChange={handleChangeDense} />
-              }
-              label="Компактный вид"
-              labelPlacement="start"
-            />
-          }
-        />
+        <TableTitle title={title} />
 
         <TableContainer>
-          <BaseTable size={isDense ? "small" : "medium"}>
+          <BaseTable size="small">
             <TableHead>
               <TableRow>
                 <TableCell />
@@ -118,11 +107,7 @@ export const Table = <T extends TEntity>({
             <TableBody>
               {tableRows}
               {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (isDense ? 33 : 53) * emptyRows,
-                  }}
-                >
+                <TableRow style={{ height: 33 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}

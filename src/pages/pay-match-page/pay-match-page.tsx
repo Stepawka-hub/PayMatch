@@ -1,9 +1,4 @@
-import {
-  CheckTable,
-  MatchConfirmModal,
-  PaymentTable,
-  SearchPanel,
-} from "@components";
+import { CheckTable, MatchConfirmModal, PaymentTable } from "@components";
 import { Box, Paper, Typography } from "@mui/material";
 import { mockChecks, mockPayments } from "@utils/mock";
 import { FC, useMemo, useState } from "react";
@@ -43,8 +38,6 @@ export const PayMatchPage: FC = () => {
       >
         Форма сопоставления платежей
       </Typography>
-
-      <SearchPanel />
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <CheckTable
