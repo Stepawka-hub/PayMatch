@@ -11,8 +11,62 @@ import { MatchPreviewPanelProps } from "./types";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import CloseIcon from "@mui/icons-material/Close";
 import { Drawer } from "@ui";
+import { CHECK_TYPE_LABELS, PAYMENT_TYPE_LABELS } from "@utils/constants";
+import { TCheckData, TColumn, TPaymentData } from "@types";
+import { DetailItem } from "./detail-item";
 
 const drawerWidth = 600;
+
+const paymentCols: TColumn<TPaymentData>[] = [
+  {
+    id: "type",
+    label: "Тип",
+    format: (value) =>
+      value === "electronic" || value === "cash"
+        ? PAYMENT_TYPE_LABELS[value]
+        : String(value),
+  },
+  {
+    id: "sum",
+    label: "Сумма",
+    format: (value) => `${value.toLocaleString("ru-RU")} ₽`,
+  },
+  { id: "customer", label: "Заказчик" },
+  { id: "customerINN", label: "Заказчик ИНН" },
+  { id: "executor", label: "Исполнитель" },
+  { id: "executorINN", label: "Исполнитель ИНН" },
+  { id: "examinee", label: "ФИО Экзаменуемого" },
+  {
+    id: "createdAt",
+    label: "Дата создания",
+    format: (value) => new Date(value).toLocaleDateString("ru-RU"),
+  },
+  { id: "paymentComment", label: "Комментарий платежа" },
+  { id: "accountantComment", label: "Комментарий бухгалтера" },
+];
+
+const checkCols: TColumn<TCheckData>[] = [
+  {
+    id: "type",
+    label: "Тип",
+    format: (value) =>
+      value === "education" || value === "duty"
+        ? CHECK_TYPE_LABELS[value]
+        : String(value),
+  },
+  {
+    id: "sum",
+    label: "Сумма",
+    format: (value) => `${value.toLocaleString("ru-RU")} ₽`,
+  },
+  { id: "customer", label: "Заказчик" },
+  { id: "customerINN", label: "Заказчик ИНН" },
+  { id: "executor", label: "Исполнитель" },
+  { id: "executorINN", label: "Исполнитель ИНН" },
+  { id: "examinee", label: "ФИО Экзаменуемого" },
+  { id: "qualification", label: "Квалификация" },
+  { id: "purposeOfPayment", label: "Назначение платежа" },
+];
 
 export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
   isOpen,
@@ -22,14 +76,39 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
   onCancel,
 }) => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+
+  const checkInfo = checkData
+    ? checkCols.map((c) => (
+        <DetailItem
+          key={c.id}
+          label={c.label}
+          value={c.format ? c.format(checkData[c.id]) : String(checkData[c.id])}
+        />
+      ))
+    : null;
+
+  const paymentInfo = paymentData
+    ? paymentCols.map((c) => (
+        <DetailItem
+          key={c.id}
+          label={c.label}
+          value={
+            c.format ? c.format(paymentData[c.id]) : String(paymentData[c.id])
+          }
+        />
+      ))
+    : null;
 
   return (
     <Drawer
-      variant={matches ? "temporary" : "persistent"}
+      variant={isMedium ? "temporary" : "persistent"}
       anchor="right"
       open={isOpen}
-      sx={{ width: isOpen ? drawerWidth : 0, ml: isOpen ? 3 : 0 }}
+      sx={{
+        width: isOpen ? drawerWidth : 0,
+        ml: isOpen ? 3 : 0,
+      }}
     >
       <Box sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
@@ -38,38 +117,18 @@ export const MatchPreviewPanel: FC<MatchPreviewPanelProps> = ({
 
         <Divider sx={{ my: 2 }} />
 
-        <Box sx={{ height: "100%" }}>
-          {paymentData && (
-            <Box sx={{ mb: 3 }}>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                Платёж:
-              </Typography>
-              <Typography>№ {paymentData.number}</Typography>
-              <Typography>
-                Сумма: {paymentData.sum.toLocaleString()} ₽
-              </Typography>
-              <Typography>Плательщик: {paymentData.customer}</Typography>
-            </Box>
-          )}
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+            {`Счёт: №${checkData?.number || "-"}`}
+          </Typography>
+          {checkInfo}
+        </Box>
 
-          {checkData && (
-            <Box sx={{ mb: 3 }}>
-              <Typography
-                variant="subtitle2"
-                color="text.secondary"
-                gutterBottom
-              >
-                Счёт:
-              </Typography>
-              <Typography>№ {checkData.number}</Typography>
-              <Typography>Сумма: {checkData.sum.toLocaleString()} ₽</Typography>
-              <Typography>Заказчик: {checkData.customer}</Typography>
-            </Box>
-          )}
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+            {`Платёж: №${paymentData?.number || "-"}`}
+          </Typography>
+          {paymentInfo}
         </Box>
 
         <Box sx={{ alignSelf: "flex-end" }}>

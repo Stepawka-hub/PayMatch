@@ -137,26 +137,28 @@ export const Table = <T extends TEntity>({
           </TableBody>
 
           <TableFooter>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              count={data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    "aria-label": "Количество записей:",
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                slotProps={{
+                  select: {
+                    inputProps: {
+                      "aria-label": "Количество записей:",
+                    },
+                    native: true,
                   },
-                  native: true,
-                },
-              }}
-              labelRowsPerPage="Количество записей:"
-              labelDisplayedRows={({ from, to, count }) =>
-                `${from}-${to} из ${count}`
-              }
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+                }}
+                labelRowsPerPage="Количество записей:"
+                labelDisplayedRows={({ from, to, count }) =>
+                  `${from}-${to} из ${count}`
+                }
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </TableRow>
           </TableFooter>
         </BaseTable>
       </TableContainer>

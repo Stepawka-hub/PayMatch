@@ -8,8 +8,10 @@ export const PayMatchPage: FC = () => {
   const [payments, setPayments] = useState<TPaymentData[]>(mockPayments);
   const [checks, setChecks] = useState<TCheckData[]>(mockChecks);
 
-  const [selectedPaymentId, setSelectedPaymentId] = useState<string>("");
-  const [selectedCheckId, setSelectedCheckId] = useState<string>("");
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(
+    null
+  );
+  const [selectedCheckId, setSelectedCheckId] = useState<string | null>(null);
 
   const handleChangePaymentId = (id: string) => {
     setSelectedPaymentId(id);
@@ -23,13 +25,13 @@ export const PayMatchPage: FC = () => {
     setPayments((p) => p.filter((p) => p.id !== selectedPaymentId));
     setChecks((p) => p.filter((c) => c.id !== selectedCheckId));
 
-    setSelectedPaymentId("");
-    setSelectedCheckId("");
+    setSelectedPaymentId(null);
+    setSelectedCheckId(null);
   };
 
   const handleCancel = () => {
-    setSelectedCheckId("");
-    setSelectedPaymentId("");
+    setSelectedCheckId(null);
+    setSelectedPaymentId(null);
   };
 
   const selectedPayment = useMemo(
@@ -43,19 +45,19 @@ export const PayMatchPage: FC = () => {
   );
 
   return (
-    <Paper sx={{ p: 2, minHeight: "100vh", overflowX: "hidden" }}>
+    <Paper sx={{ p: 2, minHeight: "100vh", overflow: "hidden" }}>
       <Grid container direction="column">
         <Grid container justifyContent="center">
           <Typography
             variant="h2"
             sx={{
+              mb: 2,
               fontSize: "2rem",
               fontWeight: 400,
               textAlign: "center",
-              mb: 2,
             }}
           >
-            Форма сопоставления платежей
+            Форма сопоставления
           </Typography>
         </Grid>
 

@@ -1,18 +1,12 @@
-import { TEntity } from "@types";
+import { TColumn, TEntity } from "@types";
 
 export type BaseTableProps = {
   title?: string;
-  selectedItemId: string;
+  selectedItemId: string | null;
   handleChangeItemId: (id: string) => void;
 };
 
 export type TableProps<T extends TEntity> = BaseTableProps & {
-  columns: THeadCell<T>[];
+  columns: TColumn<T>[];
   data: T[];
-};
-
-export type THeadCell<T extends TEntity> = {
-  id: keyof T & string;
-  label: string;
-  format?: (value: T[keyof T]) => string;
 };

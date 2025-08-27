@@ -1,9 +1,9 @@
+import { Table } from "@components";
+import { TCheckData, TColumn } from "@types";
 import { FC } from "react";
-import { Table, THeadCell } from "@components";
-import { TCheckData } from "@types";
 import { CheckTableProps } from "./types";
 
-const columns: THeadCell<TCheckData>[] = [
+const columns: TColumn<TCheckData>[] = [
   { id: "number", label: "№" },
   {
     id: "sum",

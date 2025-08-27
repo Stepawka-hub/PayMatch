@@ -1,9 +1,9 @@
+import { Table } from "@components";
+import { TColumn, TPaymentData } from "@types";
 import { FC } from "react";
-import { Table, THeadCell } from "@components";
-import { TPaymentData } from "@types";
 import { PaymentTableProps } from "./types";
 
-const columns: THeadCell<TPaymentData>[] = [
+const columns: TColumn<TPaymentData>[] = [
   { id: "number", label: "№" },
   {
     id: "sum",
