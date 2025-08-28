@@ -1,25 +1,18 @@
 import { FC } from "react";
 import { TableTitleProps } from "./types";
 import { Box, Typography } from "@mui/material";
+import { titleContainer } from "./styles";
 
 export const TableTitle: FC<TableTitleProps> = ({ title, actions }) => {
   if (!title) return null;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        mt: 2,
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-      }}
-    >
+    <Box sx={titleContainer}>
       <Typography
         id="tableTitle"
         component="div"
-        variant="h6"
-        sx={{ flex: "1 1 100%", fontWeight: 600 }}
+        variant="h5"
+        sx={{ flex: "1 1 100%" }}
       >
         {title}
       </Typography>

@@ -1,1 +1,0 @@
-export { MatchConfirmModal } from './match-confirm-modal';
